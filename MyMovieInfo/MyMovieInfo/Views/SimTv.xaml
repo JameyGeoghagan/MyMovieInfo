@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Shell.TabBarIsVisible="False"
+             Title="Simular Shows"
+             x:Class="MyMovieInfo.Views.SimTv">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Home" Command="{Binding SendUserHome}" Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ListView x:Name="listView" ItemsSource="{Binding Shows}" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Orientation="Horizontal">
+                                <Image Source="{Binding poster_path}"
+                                       Grid.Column="0"
+                                       WidthRequest="100"
+                                       HeightRequest="100"
+                                       Aspect="AspectFill">
+                                </Image>
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding name}"
+                                           FontSize="22" TextColor="Black" FontAttributes="Bold" />
+                                    <Label Text="Released:" TextColor="Black" />
+                                    <Label Text="{Binding first_air_date}" TextColor="Black" />
+                                    <Label Text="{Binding overview}" TextColor="Black" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path= BindingContext.Details, Source={x:Reference listView}}" CommandParameter="{Binding id}"/>
+                                    </StackLayout.GestureRecognizers>
+
+                                </StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path= BindingContext.Details, Source={x:Reference listView}}" CommandParameter="{Binding id}"/>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

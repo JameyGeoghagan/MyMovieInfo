@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              Shell.TabBarIsVisible="False"
+             Title="Cast"
+             x:Class="MyMovieInfo.Views.ActorList">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Home" Command="{Binding SendUserHome}" Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ListView x:Name="listView" ItemsSource="{Binding Actors}" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Orientation="Horizontal">
+                                <Image Source="{Binding profile_path}"
+                                       Grid.Column="0"
+                                       WidthRequest="100"
+                                       HeightRequest="100"
+                                       Aspect="AspectFill">
+
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Details}" CommandParameter="{Binding id}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding name}"
+                                           FontSize="22" TextColor="Black" FontAttributes="Bold" />
+                                    <StackLayout Orientation="Vertical" >
+                                        <Label Text="Played:" TextColor="Black" />
+                                        <Label Text="{Binding character}" TextColor="Black" />
+                                    </StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path= BindingContext.Details, Source={x:Reference listView}}" CommandParameter="{Binding id}"/>
+                                    </StackLayout.GestureRecognizers>
+
+                                </StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path= BindingContext.Details, Source={x:Reference listView}}" CommandParameter="{Binding id}"/>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
